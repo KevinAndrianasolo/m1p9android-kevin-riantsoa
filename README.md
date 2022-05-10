@@ -1,15 +1,25 @@
 # m1p9android-kevin-riantsoa
-Heroku URL : https://m1p9android-kevin-riantsoa.herokuapp.com/
-
+- Heroku URL : https://m1p9android-kevin-riantsoa.herokuapp.com/
+- Collaborators : kevin.andrianasolo.lala@gmail.com; ramanampamonjysandratra@gmail.com
+- To do list [Google docs]: 
+  
 ## Running Server :
-npm run dev
+- npm run dev
 
+## Heroku :
+- Deploy : 
+  * heroku login
+  * heroku git:remote -a m1p9android-kevin-riantsoa
 
-Database : m1p9android-kevin-riantsoa
-User : m1p9android-kevin-riantsoa
-Password : wjkmYLr7bASlL4yh
+  * heroku create
+  * git push heroku main
 
-CONNECT APP : mongodb+srv://m1p9android-kevin-riantsoa:wjkmYLr7bASlL4yh@cluster0.i89jy.mongodb.net/m1p9android-kevin-riantsoa?retryWrites=true&w=majority
+## POSTGRES DB :
+- Host : ec2-176-34-211-0.eu-west-1.compute.amazonaws.com
+- Database : d33klt5e4muhov
+- User :  gkjeswsqudaoxt
+- Port : 5432
+- Password : f4cec48fe1b2bf71250a8f95444df2050c4d9ceb40b6531a5f1404b8314b6cd5
+- URI : postgres://gkjeswsqudaoxt:f4cec48fe1b2bf71250a8f95444df2050c4d9ceb40b6531a5f1404b8314b6cd5@ec2-176-34-211-0.eu-west-1.compute.amazonaws.com:5432/d33klt5e4muhov
+- Heroku CLI : heroku pg:psql postgresql-symmetrical-87338 --app m1p9android-kevin-riantsoa
 
-CONNECT SHELL :
-mongosh "mongodb+srv://cluster0.i89jy.mongodb.net/m1p9android-kevin-riantsoa" --apiVersion 1 --username m1p9android-kevin-riantsoa
