@@ -1,0 +1,31 @@
+package com.kevinandrianasolo.m1p9android.views;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import com.kevinandrianasolo.m1p9android.R;
+
+public class SplashScreenActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null) actionBar.hide();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                finish();
+            }
+        }, 3000);
+    }
+}

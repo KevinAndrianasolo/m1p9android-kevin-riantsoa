@@ -1,7 +1,7 @@
 # m1p9android-kevin-riantsoa
 - Heroku URL : https://m1p9android-kevin-riantsoa.herokuapp.com/
 - Collaborators : kevin.andrianasolo.lala@gmail.com; ramanampamonjysandratra@gmail.com
-- To do list [Google docs]: 
+- To do list [Google docs]: https://docs.google.com/document/d/1AUr-I71jGdeseT0dxByMNHVvew-J-_AwyoW6zdnCHIA/edit?usp=sharing
   
 ## Running Server :
 - npm run dev
