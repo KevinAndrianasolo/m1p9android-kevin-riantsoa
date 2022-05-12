@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_category"
         android:name="com.kevinandrianasolo.m1p9android.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_category"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_favorite"
+        android:name="com.kevinandrianasolo.m1p9android.ui.favorite.FavoriteFragment"
+        android:label="@string/menu_favorite"
+        tools:layout="@layout/favorite_fragment" />
+
+    <fragment
+        android:id="@+id/nav_setting"
         android:name="com.kevinandrianasolo.m1p9android.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_setting"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
