@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 var authRouter = require('./routes/auth');
 
-
+const routes = require('./routes');
 // Middleware
 var AuthMiddleware = require('./middleware/AuthMiddleware');
 
@@ -28,11 +28,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'm1p9mean-kevin-client/dist/m1p9mean-kevin-client')));
 
-app.use(AuthMiddleware);
+// app.use(AuthMiddleware);
 
-app.use('/', indexRouter);
-app.use('/api/reflect', apiRouter);
-app.use('/auth', authRouter);
+// app.use('/', indexRouter);
+// app.use('/api/reflect', apiRouter);
+// app.use('/auth', authRouter);
+/// les routes 
+
+app.use('/', routes);
 
 
 // catch 404 and forward to error handler
