@@ -11,4 +11,6 @@
     <string name="menu_category">Thèmes éducatifs</string>
     <string name="menu_favorite">Favoris</string>
     <string name="menu_setting">Paramètres</string>
+    <string name="category_courses">Liste de cours</string>
+    <string name="category_course">Détails du cours</string>
 </resources>

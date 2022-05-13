@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.adapters.CategoryAdapter;
@@ -39,6 +40,7 @@ public class CategoryFragment extends Fragment {
 
         ListView categoryListView = view.findViewById(R.id.category_fragment_list_view);
         categoryListView.setAdapter(new CategoryAdapter(view.getContext(), categoryList));
+
 
         return view;
     }
