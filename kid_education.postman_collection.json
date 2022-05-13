@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "a1f2d745-a3a5-44a4-a959-85eb5ec02fb6",
+		"name": "kid_education",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "informations sur une société donnée",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "liste asset selon type,societe,categorie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
