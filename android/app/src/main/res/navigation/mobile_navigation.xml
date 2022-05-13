@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_category"
-        android:name="com.kevinandrianasolo.m1p9android.ui.gallery.GalleryFragment"
+        android:name="com.kevinandrianasolo.m1p9android.ui.category.CategoryFragment"
         android:label="@string/menu_category"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/category_fragment" />
 
     <fragment
         android:id="@+id/nav_favorite"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_setting"
-        android:name="com.kevinandrianasolo.m1p9android.ui.slideshow.SlideshowFragment"
+        android:name="com.kevinandrianasolo.m1p9android.ui.setting.SettingFragment"
         android:label="@string/menu_setting"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/setting_fragment" />
 </navigation>
