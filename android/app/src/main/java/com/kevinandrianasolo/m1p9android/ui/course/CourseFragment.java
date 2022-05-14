@@ -19,6 +19,7 @@ import android.widget.VideoView;
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.Category;
 import com.kevinandrianasolo.m1p9android.models.Course;
+import com.kevinandrianasolo.m1p9android.utils.MediaUtils;
 
 public class CourseFragment extends Fragment {
 
@@ -31,56 +32,38 @@ public class CourseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        /**
+         * Inflate the layout of Course Fragment and initialize the corresponding view
+         */
         View view =  inflater.inflate(R.layout.course_fragment, container, false);
-
         this.init(view);
-
         return view;
     }
 
     public void init(View view){
+        /**
+         * Getting fragment parameters : "Course"
+         */
         Bundle bundle = this.getArguments();
         Course currentCourse = (Course) bundle.get("course");
 
+        /**
+         * Show a progress dialog until the video loads
+         */
+        ProgressDialog progDialog = MediaUtils.dialog(view.getContext(), "Chargement de la vidéo", "Récupération des données nécessaires...");
+        progDialog.show();
+
+        /**
+         * Instantiate videoView with the current URL, and dismiss progress dialog when the video is loaded
+         */
         VideoView videoView = view.findViewById(R.id.course_video);
-        Uri uri = Uri.parse(currentCourse.getSrc());
+        MediaUtils.loadVideo(view.getContext(), videoView, currentCourse.getSrc(), true, progDialog);
 
-        MediaController mediaController = new MediaController(view.getContext());
-        mediaController.setAnchorView(videoView);
-
-        videoView.setMediaController(mediaController);
-        videoView.setVideoURI(uri);
-        ProgressDialog progDailog = new ProgressDialog(view.getContext());
-        progDailog.setTitle("Chargement de la vidéo");
-        progDailog.setMessage("Récupération des données nécessaires...");
-        progDailog.setIndeterminate(true);
-        progDailog.setIcon(R.drawable.ic_baseline_video_library_24);
-        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progDailog.show();
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer){
-                videoView.start();
-                progDailog.dismiss();
-                Toast.makeText(view.getContext(), "Vidéo chargée", Toast.LENGTH_SHORT).show();
-                // When video Screen change size.
-                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                    @Override
-                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-
-                        // Re-Set the videoView that acts as the anchor for the MediaController
-                        mediaController.setAnchorView(videoView);
-                    }
-                });
-
-            }
-        });
-
-
+        /**
+         * Setting views variable Course.title and Course.description whith the fragment parameters
+         */
         TextView courseTitle = view.findViewById(R.id.course_details_title);
         TextView courseDescription = view.findViewById(R.id.course_details_description);
-
         courseTitle.setText(currentCourse.getTitle());
         courseDescription.setText(currentCourse.getDescription());
     }

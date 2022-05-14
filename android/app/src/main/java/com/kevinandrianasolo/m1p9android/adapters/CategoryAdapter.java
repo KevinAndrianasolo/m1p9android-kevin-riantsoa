@@ -51,25 +51,38 @@ public class CategoryAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.category_adapter, null);
         Category currentCategory = this.getItem(i);
 
+        /**
+         * Bind the image to imageView
+         */
         ImageView imageCategory = view.findViewById(R.id.category_image);
         int resId = context.getResources().getIdentifier(currentCategory.getImg(), "drawable", context.getPackageName());
         imageCategory.setImageResource(resId);
 
+        /**
+         * Set Category.title and Category.description
+         */
         TextView titleTextView = view.findViewById(R.id.category_title);
         TextView descriptionTextView = view.findViewById(R.id.category_description);
-
         titleTextView.setText(currentCategory.getTitle());
         descriptionTextView.setText(currentCategory.getDescription());
 
+        /**
+         * Set listener to the category, when click navigate to courses list of the current Category
+         */
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /**
+                 * Pass category as a parameter for CategoryCoursesFragment
+                 */
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("category", currentCategory);
 
+                /**
+                 * Navigate to CategoryCoursesFragment with parameters
+                 */
                 NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
                 navController.navigate(R.id.nav_category_courses, bundle); // Pass the categoryId to fragment
-                //Toast.makeText(view.getContext(), "Click on "+currentCategory.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
 

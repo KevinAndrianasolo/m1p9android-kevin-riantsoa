@@ -30,15 +30,30 @@ public class CategoryCoursesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        /**
+         * Inflate the layout of CategoryCourses Fragment and initialize the corresponding view
+         */
+        View view = inflater.inflate(R.layout.category_courses_fragment, container, false);
+        this.init(view);
+        return view;
+    }
+
+    public void init(View view){
+        /**
+         * Getting fragment parameters : "Category"
+         */
         Bundle bundle = this.getArguments();
         Category currentCategory = (Category) bundle.get("category");
 
-        View view = inflater.inflate(R.layout.category_courses_fragment, container, false);
-
+        /**
+         * Binding parameters to the view :
+         */
         TextView categoryTitleTextView = view.findViewById(R.id.course_category_title);
         categoryTitleTextView.setText(currentCategory.getTitle());
 
-        // Getting courseList of currentCategory
+        /**
+         * Retrieve course list of the current category, and bind it to coursesListView
+         */
         List<Course> courseList = new ArrayList<Course>();
         courseList.add(new Course("Trouver la parfaite boite avec l'Escouade des monstres", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "https://ex1.o7planning.com/_testdatas_/mov_bbb.mp4", "https://i.picsum.photos/id/961/200/200.jpg?hmac=gHwrXvhjUL97oGKmAYQn508wdQ_V5sE9P64erzR-Ork"));
         courseList.add(new Course("Jusqu’à 10 avec les Numberblocks", "Pas de description", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://i.picsum.photos/id/593/200/200.jpg?hmac=E26lTUTkzs_AeuWXrkT-kFTudfYDTVCjgKVE_HDzRmk"));
@@ -46,9 +61,8 @@ public class CategoryCoursesFragment extends Fragment {
 
         ListView coursesListView = view.findViewById(R.id.courses_list_view);
         coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseList));
-        return view;
-    }
 
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
