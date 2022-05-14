@@ -25,16 +25,29 @@ public class MediaUtils {
 
     public static void loadVideo(Context context, VideoView videoView, String url, Boolean autostart, ProgressDialog progDialog){
         Uri uri = Uri.parse(url);
-
         MediaController mediaController = new MediaController(context);
         mediaController.setAnchorView(videoView);
 
         videoView.setMediaController(mediaController);
         videoView.setVideoURI(uri);
 
+        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+
+                Toast.makeText(context, "Une erreur est survenue lors du chargement du média", Toast.LENGTH_SHORT).show();
+                if(progDialog!=null) progDialog.dismiss();
+                progDialog.setMessage("Error: "+ what);
+                return false;
+            }
+        });
+
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
             @Override
             public void onPrepared(MediaPlayer mediaPlayer){
+                mediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+                mediaPlayer.setScreenOnWhilePlaying(false);
+
                 if(autostart) videoView.start();
                 if(progDialog!=null) progDialog.dismiss();
 
@@ -49,6 +62,8 @@ public class MediaUtils {
 
             }
         });
+
+
     }
 
     public static void loadImage(ImageView imageView, String url){
