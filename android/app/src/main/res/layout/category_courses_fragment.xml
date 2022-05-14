@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingBottom="20dp"
+
     tools:context=".ui.category_courses.CategoryCoursesFragment">
 
     <android.support.constraint.ConstraintLayout
@@ -26,7 +26,10 @@
         <ListView
             android:id="@+id/courses_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/course_category_title" />
     </android.support.constraint.ConstraintLayout>

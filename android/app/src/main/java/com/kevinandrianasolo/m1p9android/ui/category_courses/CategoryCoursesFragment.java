@@ -40,9 +40,9 @@ public class CategoryCoursesFragment extends Fragment {
 
         // Getting courseList of currentCategory
         List<Course> courseList = new ArrayList<Course>();
-        courseList.add(new Course("Trouver la parfaite boite avec l'Escouade des monstres", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "cours_maths_1"));
-        courseList.add(new Course("Jusqu’à 10 avec les Numberblocks", "Pas de description", "cours_maths_2"));
-        courseList.add(new Course("Le soleil, une super-étoile", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "cours_maths_3"));
+        courseList.add(new Course("Trouver la parfaite boite avec l'Escouade des monstres", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "https://ex1.o7planning.com/_testdatas_/mov_bbb.mp4", "https://i.picsum.photos/id/961/200/200.jpg?hmac=gHwrXvhjUL97oGKmAYQn508wdQ_V5sE9P64erzR-Ork"));
+        courseList.add(new Course("Jusqu’à 10 avec les Numberblocks", "Pas de description", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://i.picsum.photos/id/593/200/200.jpg?hmac=E26lTUTkzs_AeuWXrkT-kFTudfYDTVCjgKVE_HDzRmk"));
+        courseList.add(new Course("Le soleil, une super-étoile", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "https://i.picsum.photos/id/352/200/200.jpg?hmac=HPgFQ0Sto_7261sbYIaRW0-z2Jq0-C92RSt0vkdC6Uc"));
 
         ListView coursesListView = view.findViewById(R.id.courses_list_view);
         coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseList));

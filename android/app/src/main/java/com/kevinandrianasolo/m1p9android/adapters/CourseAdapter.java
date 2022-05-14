@@ -2,6 +2,8 @@ package com.kevinandrianasolo.m1p9android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,9 @@ import androidx.navigation.Navigation;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.Course;
+import com.squareup.picasso.Picasso;
 
+import java.net.URL;
 import java.util.List;
 
 public class CourseAdapter extends BaseAdapter {
@@ -51,6 +55,11 @@ public class CourseAdapter extends BaseAdapter {
         Course currentCourse = getItem(i);
 
         view = inflater.inflate(R.layout.course_adapter, null);
+
+        //Setting img Thumbnail
+        ImageView thumbnailView = view.findViewById(R.id.course_thumbnail);
+        Picasso.get().load(currentCourse.getThumbnail()).into(thumbnailView);
+
         TextView titleTextView = view.findViewById(R.id.course_title);
         TextView descriptionTextView = view.findViewById(R.id.course_description);
 

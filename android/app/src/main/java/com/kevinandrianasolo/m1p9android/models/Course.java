@@ -6,11 +6,13 @@ public class Course implements Serializable {
     private String title;
     private String description;
     private String src;
+    private String thumbnail;
 
-    public Course(String title, String description, String src) {
+    public Course(String title, String description, String src, String thumbnail) {
         this.title = title;
         this.description = description;
         this.src = src;
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() {
@@ -35,5 +37,13 @@ public class Course implements Serializable {
 
     public void setSrc(String src) {
         this.src = src;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }
