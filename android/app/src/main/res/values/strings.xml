@@ -13,4 +13,6 @@
     <string name="menu_setting">Paramètres</string>
     <string name="category_courses">Liste de cours</string>
     <string name="category_course">Détails du cours</string>
+    <string name="channel_name">Ludikids Notification Channel</string>
+    <string name="channel_description">Ludikids Notification Description</string>
 </resources>

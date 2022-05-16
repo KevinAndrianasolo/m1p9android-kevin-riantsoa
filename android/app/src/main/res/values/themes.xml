@@ -16,4 +16,8 @@
     <style name="Theme.M1p9android.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.M1p9android.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/source_sans_pro_light</item>
+    </style>
 </resources>
