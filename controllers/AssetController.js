@@ -1,11 +1,13 @@
 const pool =  require('../utils/PGconnect');
 
 
-const getAsset = (request, response) => { 
+const getAsset = async (request, response) => { 
+
     let idCompany = request.query.company_id
     let idCategory = request.query.category_id
     let valueAsset = request.query.asset_value
     let champAsset = request.query.asset_field
+
     let query = 'SELECT * FROM asset '
     if( Object.keys(request.query).length !== 0) {
         query += 'WHERE '
@@ -24,10 +26,8 @@ const getAsset = (request, response) => {
             }
             query += champAsset+" = '"+ valueAsset +"'"
         }
-    
     }
-    console.log(query)
-    pool.query(query, (error, results) => {
+   await pool.query(query, (error, results) => {
         if (error) {
           throw error
         }
@@ -35,10 +35,10 @@ const getAsset = (request, response) => {
       })
   }
 
-  const getAssetById = (request, response) => {
-    const id = parseInt(request.params.id)
-    
-    pool.query('SELECT * FROM asset WHERE asset_id = $1', [id], (error, results) => {
+const getAssetById = async (request, response) => {
+
+    const id = parseInt(request.params.id) 
+   await pool.query('SELECT * FROM asset WHERE asset_id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
