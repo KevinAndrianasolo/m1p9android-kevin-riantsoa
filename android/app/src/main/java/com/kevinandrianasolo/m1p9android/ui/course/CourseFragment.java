@@ -68,7 +68,7 @@ public class CourseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CourseViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         // TODO: Use the ViewModel
     }
 

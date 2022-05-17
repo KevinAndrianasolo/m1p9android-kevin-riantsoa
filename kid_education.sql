@@ -35,15 +35,12 @@ create table asset(
 );
 
 -- DONNÉE TEST SOCIETE
-
 INSERT into company (name,slogan,min_age,max_age,summary) VALUES ( 'Ludikids','Grandir Malin',3,8, 'Ludikids est une chaîne de télévision linéaire éducative et pédagogique qui propose  aux enfants âgés de 3 à 8 ans des programmes encadrés, ludiques et éducatifs mettant l''accent sur l''anglais et l''alphabétisation, les maths et l''arithmétique, les sciences et le monde autour de nous, l''apprentissage social et émotionnel' );
 
 -- DONNÉE TEST CATEGORIE
-
 INSERT into category (name,description) VALUES ('Les Maths et Arithmétique','Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d''additions et de soustractions.');
 
 -- DONNÉE TEST ASSET
-
 INSERT into asset (company_id,hashcode,type,file_name,file_path,extension,media_title,description,category_id,created_at) VALUES 
     (
         1,

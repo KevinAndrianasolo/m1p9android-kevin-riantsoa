@@ -52,7 +52,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CategoryViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         // TODO: Use the ViewModel
 
 
