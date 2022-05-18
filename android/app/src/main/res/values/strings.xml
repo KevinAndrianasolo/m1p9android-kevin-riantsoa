@@ -11,6 +11,7 @@
     <string name="menu_category">Thèmes éducatifs</string>
     <string name="menu_account">Mon compte</string>
     <string name="menu_setting">Paramètres</string>
+    <string name="menu_login">Se connecter</string>
     <string name="category_courses">Liste de cours</string>
     <string name="category_course">Détails du cours</string>
     <string name="channel_name">Ludikids Notification Channel</string>

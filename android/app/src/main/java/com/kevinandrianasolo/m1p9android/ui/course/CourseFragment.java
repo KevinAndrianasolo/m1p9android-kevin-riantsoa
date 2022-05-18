@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -63,6 +64,11 @@ public class CourseFragment extends Fragment {
         TextView courseDescription = view.findViewById(R.id.course_details_description);
         courseTitle.setText(currentCourse.getTitle());
         courseDescription.setText(currentCourse.getDescription());
+
+        //getActivity(). getWindow().getSupportActionBar().hide();
+
+        //view.findViewById(R.id.appbar).setVisibility(View.INVISIBLE);
+        //getActivity(). getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     @Override

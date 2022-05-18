@@ -22,8 +22,10 @@
             app:title="Ludikids" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <ImageButton
                 android:id="@+id/toolbar_menu_launcher"
