@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDestinationChanged(@NonNull NavController controller,
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                Toast.makeText(MainActivity.this, new Integer(destination.getId()).toString(), Toast.LENGTH_SHORT).show();
-                if(destination.getId() == R.id.nav_course) {
+                if(destination.getId() == R.id.nav_course || destination.getId() == R.id.nav_login ) {
                     appbar.setVisibility(View.GONE);
                 } else {
                     appbar.setVisibility(View.VISIBLE);
