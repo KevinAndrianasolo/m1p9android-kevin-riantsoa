@@ -13,12 +13,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inspector.PropertyReader;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class HomeFragment extends Fragment {
 
@@ -57,9 +62,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        String url = "http://192.168.1.101:3000/public/pages/home/index.html";
-        //String url = "http://192.168.137.138:3000/public/pages/home/index.html";
-        homeWebView.loadUrl(url);
+
+        try{
+            Properties properties = new Properties();
+            InputStream is = view.getContext().getAssets().open("application.properties");
+            properties.load(is);
+            String serverUrl = properties.getProperty("server.url");
+
+            //String url = "http://192.168.137.138:3000/public/pages/home/index.html";
+            String url = serverUrl + "/public/pages/home/index.html";
+            homeWebView.loadUrl(url);
+        }
+        catch(Exception e){
+            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
         return view;
     }
 
