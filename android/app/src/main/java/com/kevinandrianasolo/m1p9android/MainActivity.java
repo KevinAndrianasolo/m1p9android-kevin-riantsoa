@@ -1,12 +1,20 @@
 package com.kevinandrianasolo.m1p9android;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -47,6 +55,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        ConstraintLayout appbar = findViewById(R.id.appbar);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                Toast.makeText(MainActivity.this, new Integer(destination.getId()).toString(), Toast.LENGTH_SHORT).show();
+                if(destination.getId() == R.id.nav_course) {
+                    appbar.setVisibility(View.GONE);
+                } else {
+                    appbar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         this.initMenu();
     }
 
