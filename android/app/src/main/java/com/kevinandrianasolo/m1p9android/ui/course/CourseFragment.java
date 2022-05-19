@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.MediaController;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -60,7 +63,10 @@ public class CourseFragment extends Fragment {
          * Instantiate videoView with the current URL, and dismiss progress dialog when the video is loaded
          */
         VideoView videoView = view.findViewById(R.id.course_video);
-        MediaUtils.loadVideo(view.getContext(), videoView, currentCourse.getSrc(), true, progDialog);
+        MediaController mediaController = new MediaController(view.getContext());
+        mediaController.setAnchorView(videoView);
+        MediaUtils.loadVideo(view.getContext(), videoView,mediaController, currentCourse.getSrc(), true, progDialog);
+
         /*
         // For you tube videos
         YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);

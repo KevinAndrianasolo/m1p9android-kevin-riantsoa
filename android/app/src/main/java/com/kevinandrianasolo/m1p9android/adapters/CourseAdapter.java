@@ -59,8 +59,8 @@ public class CourseAdapter extends BaseAdapter {
         /**
          * Setting course thumbnail, an image wich represent the entire course
          */
-        ImageView thumbnailView = view.findViewById(R.id.course_thumbnail);
-        MediaUtils.loadImage(thumbnailView, currentCourse.getThumbnail());
+        //ImageView thumbnailView = view.findViewById(R.id.course_thumbnail);
+        //MediaUtils.loadImage(thumbnailView, currentCourse.getThumbnail());
 
         /**
          * Fill Course.title and Course.description

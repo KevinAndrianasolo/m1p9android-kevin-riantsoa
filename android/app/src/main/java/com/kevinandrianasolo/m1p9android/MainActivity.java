@@ -1,11 +1,15 @@
 package com.kevinandrianasolo.m1p9android;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -23,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kevinandrianasolo.m1p9android.databinding.ActivityMainBinding;
+import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +73,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         this.initMenu();
+        /**
+         * Customize navigation drawer when a user is connected or not
+         */
+        Menu navMenu = navigationView.getMenu();
+        MenuItem accountItem = navMenu.findItem(R.id.nav_account);
+        MenuItem loginItem = navMenu.findItem(R.id.nav_login);
+
+
+        /**
+         * Getting the connected USER :
+         */
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String userId = sharedPref.getString("userId" , null);
+        Toast.makeText(MainActivity.this, "sharedPref : "+userId, Toast.LENGTH_SHORT).show();
+
+        Boolean isAuthentificated = userId!=null;
+        if(accountItem!=null) accountItem.setVisible(isAuthentificated);
+        if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
+
+        sharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                String userId = sharedPref.getString("userId" , null);
+                Toast.makeText(MainActivity.this, "sharedPref : "+s +" et "+userId, Toast.LENGTH_SHORT).show();
+                Boolean isAuthentificated = userId!=null;
+                if(accountItem!=null) accountItem.setVisible(isAuthentificated);
+                if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
+            }
+        });
+
+        sharedPreferencesUtils.setSharedPreferences(sharedPref);
     }
 
     public void initMenu(){
