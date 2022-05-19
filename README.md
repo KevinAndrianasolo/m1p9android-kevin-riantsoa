@@ -30,3 +30,11 @@
 - Course n°1 :
   * Miniature : https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Trouver-la-parfaite-boite-avec-l-Escouade-des-monstres-maths.PNG
   * Video : https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Trouver-la-parfaite-boite-avec-l-Escouade-des-monstres-maths.mkv
+
+- Cours n°2 :
+  * Video : https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Jusqu-à-10-avec-les-Numberblocks.mkv
+
+### Sciences
+- Cours n°1 :
+  * Video : https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/sciences/Le-recyclage.mkv
+
