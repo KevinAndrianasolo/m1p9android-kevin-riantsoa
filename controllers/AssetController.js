@@ -7,7 +7,6 @@ const getAsset = async (request, response) => {
     let idCategory = request.query.category_id
     let valueAsset = request.query.asset_value
     let champAsset = request.query.asset_field
-
     let query = 'SELECT * FROM asset '
     if( Object.keys(request.query).length !== 0) {
         query += 'WHERE '
