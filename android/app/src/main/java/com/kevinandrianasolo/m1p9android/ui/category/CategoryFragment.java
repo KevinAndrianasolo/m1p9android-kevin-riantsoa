@@ -41,10 +41,10 @@ public class CategoryFragment extends Fragment {
          * Retrieve categoryList from server and bind it to categoryListView
          */
         List<Category> categoryList = new ArrayList<Category>();
-        categoryList.add(new Category("Anglais et Alphabétisation", "Ludikids introduit l’alphabétisation française et des compétences en anglais telles que la phonétique, les lettres et les mots.", "category_abc"));
-        categoryList.add(new Category("Les Maths et Arithmétique", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "category_maths"));
-        categoryList.add(new Category("Sciences et Monde Autour De Nous", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "category_sciences"));
-        categoryList.add(new Category("L’apprentissage Social et Émotionnel", "Ludikids introduit des programmes pour encourager l’apprentissage social et émotionnel essentiel au développement de l’enfant.", "category_social"));
+        categoryList.add(new Category("Anglais et Alphabétisation", "Ludikids introduit l’alphabétisation française et des compétences en anglais telles que la phonétique, les lettres et les mots.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/pages/home/course_themes/Anglais-et-Alphabétisation.png"));
+        categoryList.add(new Category("Les Maths et Arithmétique", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/pages/home/course_themes/Les-Maths-et-Arithmétique.png"));
+        categoryList.add(new Category("Sciences et Monde Autour De Nous", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/pages/home/course_themes/Sciences-et-monde-autour-de-nous.png"));
+        categoryList.add(new Category("L’apprentissage Social et Émotionnel", "Ludikids introduit des programmes pour encourager l’apprentissage social et émotionnel essentiel au développement de l’enfant.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/pages/home/course_themes/Apprentissage-social-et-émotionnel.png"));
         ListView categoryListView = view.findViewById(R.id.category_fragment_list_view);
         categoryListView.setAdapter(new CategoryAdapter(view.getContext(), categoryList));
     }

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.Category;
+import com.kevinandrianasolo.m1p9android.utils.MediaUtils;
 
 import java.util.List;
 
@@ -55,8 +56,7 @@ public class CategoryAdapter extends BaseAdapter {
          * Bind the image to imageView
          */
         ImageView imageCategory = view.findViewById(R.id.category_image);
-        int resId = context.getResources().getIdentifier(currentCategory.getImg(), "drawable", context.getPackageName());
-        imageCategory.setImageResource(resId);
+        MediaUtils.loadImage(imageCategory, currentCategory.getImg());
 
         /**
          * Set Category.title and Category.description
