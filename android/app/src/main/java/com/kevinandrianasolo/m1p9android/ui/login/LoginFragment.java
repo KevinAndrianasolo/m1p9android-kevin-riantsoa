@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("userId", userId);
                 editor.commit();
+
                 /**
                  * Redirecting to home after Login succeed
                  */

@@ -1,6 +1,11 @@
 package com.kevinandrianasolo.m1p9android.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.kevinandrianasolo.m1p9android.MainActivity;
 
 public class SharedPreferencesUtils {
     private static SharedPreferencesUtils instance;
@@ -22,4 +27,5 @@ public class SharedPreferencesUtils {
     public void setSharedPreferences(SharedPreferences sharedPreferences){
         this.sharedPreferences = sharedPreferences;
     }
+
 }

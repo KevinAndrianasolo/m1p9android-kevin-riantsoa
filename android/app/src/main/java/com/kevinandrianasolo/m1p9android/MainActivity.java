@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
+    public SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         this.initMenu();
+
         /**
          * Customize navigation drawer when a user is connected or not
          */
@@ -88,23 +90,24 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         String userId = sharedPref.getString("userId" , null);
-        Toast.makeText(MainActivity.this, "sharedPref : "+userId, Toast.LENGTH_SHORT).show();
 
         Boolean isAuthentificated = userId!=null;
         if(accountItem!=null) accountItem.setVisible(isAuthentificated);
         if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
 
-        sharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+        /**
+         * Subscribe change Event to the SharedPreference
+         */
+        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
                 String userId = sharedPref.getString("userId" , null);
-                Toast.makeText(MainActivity.this, "sharedPref : "+s +" et "+userId, Toast.LENGTH_SHORT).show();
                 Boolean isAuthentificated = userId!=null;
                 if(accountItem!=null) accountItem.setVisible(isAuthentificated);
                 if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
             }
-        });
-
+        };
+        sharedPref.registerOnSharedPreferenceChangeListener(listener);
         sharedPreferencesUtils.setSharedPreferences(sharedPref);
     }
 

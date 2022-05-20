@@ -53,7 +53,7 @@ public class AccountFragment extends Fragment {
                 SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove("userId");
-                editor.apply();
+                editor.commit();
 
                 /**
                  * Redirect to login after logout succeed
