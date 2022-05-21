@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.kevinandrianasolo.m1p9android.models.Course;
 import com.kevinandrianasolo.m1p9android.models.CourseTheme;
 import com.kevinandrianasolo.m1p9android.singleton.ApiSingleton;
+import com.kevinandrianasolo.m1p9android.utils.PropertiesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,13 +17,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class CourseService {
-    public static final String HTTP_LOCALHOST_3000_API = "http://10.0.2.2:3000/api/";
+    public String serverUrl = "http://10.0.2.2:3000";
     private Context context;
 
     public CourseService(Context context) {
+
         this.context = context;
+        PropertiesUtils propertiesUtils = PropertiesUtils.getInstance(context);
+        Properties properties = propertiesUtils.getProperties();
+        if(properties!=null) {
+            serverUrl = properties.getProperty("server.url");
+        }
     }
 
     public interface allCourseByTheme {
@@ -37,7 +45,7 @@ public class CourseService {
 
 
     public void  getAllCourseByTheme(int courseTheme_id,allCourseByTheme allCourseByTheme) {
-        String url = HTTP_LOCALHOST_3000_API+"course/theme/"+courseTheme_id;
+        String url = serverUrl+"/api/course/theme/"+courseTheme_id;
 
         List<Course> courseList =  new ArrayList<Course>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -76,7 +84,7 @@ public class CourseService {
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
     public void  getAllCourseByTitle(int courseTheme_id,String key,allCourseByTitle allCourseByTitle) {
-        String url = HTTP_LOCALHOST_3000_API+"course/theme/"+courseTheme_id+"/search?title="+key;
+        String url = serverUrl+"/api/course/theme/"+courseTheme_id+"/search?title="+key;
         List<Course> courseList =  new ArrayList<Course>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
