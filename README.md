@@ -38,3 +38,6 @@
 - Cours n°1 :
   * Video : https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/sciences/Le-recyclage.mkv
 
+## For local :
+create database kid_education;
+\c kid_education

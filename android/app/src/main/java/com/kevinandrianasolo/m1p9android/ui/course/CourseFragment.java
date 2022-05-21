@@ -65,7 +65,7 @@ public class CourseFragment extends Fragment {
         VideoView videoView = view.findViewById(R.id.course_video);
         MediaController mediaController = new MediaController(view.getContext());
         mediaController.setAnchorView(videoView);
-        MediaUtils.loadVideo(view.getContext(), videoView,mediaController, currentCourse.getSrc(), true, progDialog);
+        MediaUtils.loadVideo(view.getContext(), videoView,mediaController, currentCourse.getVideo_path(), true, progDialog);
 
         /*
         // For you tube videos
