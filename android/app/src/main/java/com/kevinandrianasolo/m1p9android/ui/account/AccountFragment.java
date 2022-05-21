@@ -52,7 +52,7 @@ public class AccountFragment extends Fragment {
                 SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
                 SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.remove("userId");
+                editor.remove(getString(R.string.preferences_userId));
                 editor.commit();
 
                 /**

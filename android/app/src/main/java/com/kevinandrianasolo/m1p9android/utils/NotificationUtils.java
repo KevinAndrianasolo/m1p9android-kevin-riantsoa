@@ -3,8 +3,10 @@ package com.kevinandrianasolo.m1p9android.utils;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -25,7 +27,18 @@ public class NotificationUtils {
         return instance;
     }
 
+    public Boolean isNotificationActivated(Context context){
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+        SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
+        Boolean isNotificationActivated = sharedPref.getBoolean(context.getString(R.string.preferences_notifications), true);
+        return isNotificationActivated;
+    }
+
     public void showBasicNotification(Context context, String textTitle, String textContent){
+        if(!this.isNotificationActivated(context)) {
+            Toast.makeText(context, "Pour voir les notifications, allez voir dans paramètres > Cochez 'Activer les notifications'", Toast.LENGTH_LONG).show();
+            return;
+        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                 .setContentTitle(textTitle)
