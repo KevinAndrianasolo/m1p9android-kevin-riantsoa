@@ -48,14 +48,14 @@ create table assetType (
 create table asset(
     id serial  primary key, 
     company_id integer NOT NULL,
-    assetType_id varchar(25)NOT NULL,
+    assetType_id integer NOT NULL,
     file_path varchar(255)NOT NULL,
     media_title varchar(50)NOT NULL,
     description text NOT NULL,
     assetCategory_id integer NOT NULL,
     created_at date NOT NULL,
     foreign key (company_id) references company(id),
-    foreign key (category_id) references assetCategory(id),
+    foreign key (assetCategory_id) references assetCategory(id),
     foreign key (assetType_id) references assetType(id)
 );
 
@@ -77,16 +77,3 @@ INSERT into courseTheme (name,company_id,description,image_path) VALUES ('Anglai
 
 
 -- DONNÉE TEST ASSET
-INSERT into asset (company_id,hashcode,type,file_name,file_path,extension,media_title,description,category_id,created_at) VALUES 
-    (
-        1,
-        'd4c1bce57c3d797dd63389bb3167ff75e5bbbe2ff5a67c1e3efb55207111d6ad',
-        'video',
-        'testVideo',
-        'asset/video/',
-        'MIM',
-        'Video test',
-        'un petit test video',
-        1,
-        now()
-    );
