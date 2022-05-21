@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
-import com.kevinandrianasolo.m1p9android.adapters.CategoryAdapter;
+import com.kevinandrianasolo.m1p9android.adapters.CourseThemeAdapter;
 import com.kevinandrianasolo.m1p9android.models.CourseTheme;
 import com.kevinandrianasolo.m1p9android.services.CourseThemeService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryFragment extends Fragment {
@@ -45,12 +45,13 @@ public class CategoryFragment extends Fragment {
          courseServ.getAllCourseTheme(1, new CourseThemeService.allCourse() {
             @Override
             public void onError(String message) {
-
+                Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onResponse(List<CourseTheme> courseThemeList) {
+                Toast.makeText(view.getContext(), "Response", Toast.LENGTH_SHORT).show();
                 ListView categoryListView = view.findViewById(R.id.category_fragment_list_view);
-                categoryListView.setAdapter(new CategoryAdapter(view.getContext(), courseThemeList));
+                categoryListView.setAdapter(new CourseThemeAdapter(view.getContext(), courseThemeList));
             }
         });
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.adapters.CourseAdapter;
@@ -63,7 +64,7 @@ public class CategoryCoursesFragment extends Fragment {
         courseServ.getAllCourseByTheme(currentCourseTheme.getId(), new CourseService.allCourseByTheme() {
             @Override
             public void onError(String message) {
-
+                Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
             }
 
             @Override

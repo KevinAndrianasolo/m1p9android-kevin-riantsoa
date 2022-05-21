@@ -1,6 +1,7 @@
 package com.kevinandrianasolo.m1p9android.services;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -33,6 +34,7 @@ public class CourseThemeService {
         Properties properties = propertiesUtils.getProperties();
         if(properties!=null) {
             serverUrl = properties.getProperty("server.url");
+
         }
     }
     public interface allCourse {
@@ -42,7 +44,7 @@ public class CourseThemeService {
 
     public void  getAllCourseTheme(int company_id,allCourse allCourse) {
         String url =  serverUrl+"/api/courseTheme/"+company_id;
-
+        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
         List<CourseTheme> courseThemeList =  new ArrayList<CourseTheme>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,

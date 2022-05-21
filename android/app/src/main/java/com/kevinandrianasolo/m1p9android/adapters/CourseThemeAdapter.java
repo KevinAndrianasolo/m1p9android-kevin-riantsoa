@@ -15,17 +15,18 @@ import androidx.navigation.Navigation;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.Category;
+import com.kevinandrianasolo.m1p9android.models.CourseTheme;
 import com.kevinandrianasolo.m1p9android.utils.MediaUtils;
 
 import java.util.List;
 
-public class CategoryAdapter extends BaseAdapter {
+public class CourseThemeAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Category> categoryList;
+    private List<CourseTheme> categoryList;
     private LayoutInflater inflater;
 
-    public CategoryAdapter(Context context, List<Category> categoryList) {
+    public CourseThemeAdapter(Context context, List<CourseTheme> categoryList) {
         this.context = context;
         this.categoryList = categoryList;
         inflater = LayoutInflater.from(context);
@@ -37,7 +38,7 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public Category getItem(int i) {
+    public CourseTheme getItem(int i) {
         return categoryList.get(i);
     }
 
@@ -50,20 +51,20 @@ public class CategoryAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         view = inflater.inflate(R.layout.category_adapter, null);
-        Category currentCategory = this.getItem(i);
+        CourseTheme currentCategory = this.getItem(i);
 
         /**
          * Bind the image to imageView
          */
         ImageView imageCategory = view.findViewById(R.id.category_image);
-        MediaUtils.loadImage(imageCategory, currentCategory.getImg());
+        MediaUtils.loadImage(imageCategory, currentCategory.getImage_path());
 
         /**
          * Set Category.title and Category.description
          */
         TextView titleTextView = view.findViewById(R.id.category_title);
         TextView descriptionTextView = view.findViewById(R.id.category_description);
-        titleTextView.setText(currentCategory.getTitle());
+        titleTextView.setText(currentCategory.getName());
         descriptionTextView.setText(currentCategory.getDescription());
 
         /**
