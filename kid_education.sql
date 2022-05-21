@@ -59,6 +59,20 @@ create table asset(
     foreign key (assetType_id) references assetType(id)
 );
 
+--TABLE ACCOUNT
+
+create table account (
+    id serial primary key,
+    name varchar (255),
+    firstname varchar (255),
+    username varchar (255) UNIQUE,
+    email varchar (255) UNIQUE,
+    birth date,
+    password varchar(255), 
+    gender varchar(50)
+);
+
+
 -- DONNÉE TEST SOCIETE
 INSERT into company (name,slogan,min_age,max_age,summary) VALUES ( 'Ludikids','Grandir Malin',3,8, 'Ludikids est une chaîne de télévision linéaire éducative et pédagogique qui propose  aux enfants âgés de 3 à 8 ans des programmes encadrés, ludiques et éducatifs mettant l''accent sur l''anglais et l''alphabétisation, les maths et l''arithmétique, les sciences et le monde autour de nous, l''apprentissage social et émotionnel' );
 
