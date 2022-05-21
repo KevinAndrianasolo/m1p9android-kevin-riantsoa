@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.adapters.CourseAdapter;
-import com.kevinandrianasolo.m1p9android.models.Category;
+import com.kevinandrianasolo.m1p9android.models.CourseTheme;
 import com.kevinandrianasolo.m1p9android.models.Course;
+import com.kevinandrianasolo.m1p9android.services.CourseService;
+import com.kevinandrianasolo.m1p9android.services.CourseThemeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,23 +46,32 @@ public class CategoryCoursesFragment extends Fragment {
          * Getting fragment parameters : "Category"
          */
         Bundle bundle = this.getArguments();
-        Category currentCategory = (Category) bundle.get("category");
+
+        CourseTheme currentCourseTheme = (CourseTheme) bundle.get("category");
 
         /**
          * Binding parameters to the view :
          */
         TextView categoryTitleTextView = view.findViewById(R.id.course_category_title);
-        categoryTitleTextView.setText(currentCategory.getTitle());
+        categoryTitleTextView.setText(currentCourseTheme.getName());
 
         /**
          * Retrieve course list of the current category, and bind it to coursesListView
          */
-        List<Course> courseList = new ArrayList<Course>();
-        courseList.add(new Course("Trouver la parfaite boite avec l'Escouade des monstres", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Trouver-la-parfaite-boite-avec-l-Escouade-des-monstres-maths.mkv", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Trouver-la-parfaite-boite-avec-l-Escouade-des-monstres-maths.PNG"));
-        courseList.add(new Course("Jusqu’à 10 avec les Numberblocks", "Pas de description", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/maths/Jusqu-à-10-avec-les-Numberblocks.mkv", "https://i.picsum.photos/id/593/200/200.jpg?hmac=E26lTUTkzs_AeuWXrkT-kFTudfYDTVCjgKVE_HDzRmk"));
-        courseList.add(new Course("Le soleil, une super-étoile", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "https://m1p9android-kevin-riantsoa.herokuapp.com/public/courses/sciences/Le-recyclage.mkv", "https://i.picsum.photos/id/352/200/200.jpg?hmac=HPgFQ0Sto_7261sbYIaRW0-z2Jq0-C92RSt0vkdC6Uc"));
+        CourseService courseServ = new CourseService(view.getContext());
         ListView coursesListView = view.findViewById(R.id.courses_list_view);
-        coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseList));
+        courseServ.getAllCourseByTheme(currentCourseTheme.getId(), new CourseService.allCourseByTheme() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(List<Course> courseList) {
+                coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseList));
+            }
+        });
+
 
         /**
          * Initialize course search view :
@@ -76,13 +86,17 @@ public class CategoryCoursesFragment extends Fragment {
                 /**
                  * Retrieve filtered data from API and update ListView Items
                  */
-                List<Course> courseListFiltered = new ArrayList<Course>();
-                courseListFiltered.add(new Course("Trouver la parfaite boite avec l'Escouade des monstres", "Avec ludikids, les enfants seront exposés aux nombres, aux formes, aux calculs, aux concepts d’additions et de soustractions.", "https://ex1.o7planning.com/_testdatas_/mov_bbb.mp4", "https://i.picsum.photos/id/961/200/200.jpg?hmac=gHwrXvhjUL97oGKmAYQn508wdQ_V5sE9P64erzR-Ork"));
-                courseListFiltered.add(new Course("Le soleil, une super-étoile", "Avec ludikids, les enfants acquerront de la connaissance sur les sciences, la nature, la technologie, le monde environnant et sur la façon dont les choses fonctionnent.", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", "https://i.picsum.photos/id/352/200/200.jpg?hmac=HPgFQ0Sto_7261sbYIaRW0-z2Jq0-C92RSt0vkdC6Uc"));
-                coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseListFiltered));
-
-                if(courseListFiltered.size() == 0) searchCourseMessage.setVisibility(View.VISIBLE);//.setVisibility(View.VISIBLE);
-                else searchCourseMessage.setVisibility(View.INVISIBLE);
+                courseServ.getAllCourseByTitle(currentCourseTheme.getId(), s, new CourseService.allCourseByTitle() {
+                    @Override
+                    public void onError(String message) {
+                    }
+                    @Override
+                    public void onResponse(List<Course> courseListFiltered) {
+                        coursesListView.setAdapter(new CourseAdapter(view.getContext(), courseListFiltered));
+                        if(courseListFiltered.size() == 0) searchCourseMessage.setVisibility(View.VISIBLE);//.setVisibility(View.VISIBLE);
+                        else searchCourseMessage.setVisibility(View.INVISIBLE);
+                    }
+                });
                 return true;
             }
 
