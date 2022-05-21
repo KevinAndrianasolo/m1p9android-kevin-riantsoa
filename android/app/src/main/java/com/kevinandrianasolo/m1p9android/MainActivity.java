@@ -76,39 +76,32 @@ public class MainActivity extends AppCompatActivity {
         this.initMenu();
 
         /**
-         * Customize navigation drawer when a user is connected or not
-         */
-        Menu navMenu = navigationView.getMenu();
-        MenuItem accountItem = navMenu.findItem(R.id.nav_account);
-        MenuItem loginItem = navMenu.findItem(R.id.nav_login);
-
-
-        /**
          * Getting the connected USER :
          */
         SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
-
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        String userId = sharedPref.getString("userId" , null);
-
-        Boolean isAuthentificated = userId!=null;
-        if(accountItem!=null) accountItem.setVisible(isAuthentificated);
-        if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
-
+        this.refreshNavigationDrawer(navigationView, sharedPref);
         /**
          * Subscribe change Event to the SharedPreference
          */
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                String userId = sharedPref.getString("userId" , null);
-                Boolean isAuthentificated = userId!=null;
-                if(accountItem!=null) accountItem.setVisible(isAuthentificated);
-                if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
+                if(s.compareTo(getString(R.string.preferences_userId))==0) MainActivity.this.refreshNavigationDrawer(navigationView, sharedPreferences);
             }
         };
         sharedPref.registerOnSharedPreferenceChangeListener(listener);
         sharedPreferencesUtils.setSharedPreferences(sharedPref);
+    }
+
+    public void refreshNavigationDrawer(NavigationView navigationView, SharedPreferences sharedPreferences){
+        Menu navMenu = navigationView.getMenu();
+        MenuItem accountItem = navMenu.findItem(R.id.nav_account);
+        MenuItem loginItem = navMenu.findItem(R.id.nav_login);
+        String userId = sharedPreferences.getString(getString(R.string.preferences_userId) , null);
+        Boolean isAuthentificated = userId!=null;
+        if(accountItem!=null) accountItem.setVisible(isAuthentificated);
+        if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
     }
 
     public void initMenu(){

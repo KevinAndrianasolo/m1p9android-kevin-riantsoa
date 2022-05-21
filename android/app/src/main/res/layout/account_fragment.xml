@@ -43,6 +43,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Se déconnecter"
+            android:textAllCaps="false"
             android:textColor="#C63737"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

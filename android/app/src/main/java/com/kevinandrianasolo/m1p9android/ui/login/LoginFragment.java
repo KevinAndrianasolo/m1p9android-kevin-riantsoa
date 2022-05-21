@@ -44,7 +44,8 @@ public class LoginFragment extends Fragment {
                 SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
                 SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("userId", userId);
+
+                editor.putString(getString(R.string.preferences_userId), userId);
                 editor.commit();
 
                 /**
