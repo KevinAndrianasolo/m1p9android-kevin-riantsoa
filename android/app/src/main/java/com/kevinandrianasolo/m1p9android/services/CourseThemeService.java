@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kevinandrianasolo.m1p9android.models.CourseTheme;
 import com.kevinandrianasolo.m1p9android.singleton.ApiSingleton;
+import com.kevinandrianasolo.m1p9android.utils.PropertiesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,13 +21,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class CourseThemeService {
-    public static final String HTTP_LOCALHOST_3000_API = "http://10.0.2.2:3000/api/";
+    public String serverUrl = "http://10.0.2.2:3000";
     private Context context;
 
     public CourseThemeService(Context context) {
         this.context = context;
+        PropertiesUtils propertiesUtils = PropertiesUtils.getInstance(context);
+        Properties properties = propertiesUtils.getProperties();
+        if(properties!=null) {
+            serverUrl = properties.getProperty("server.url");
+        }
     }
     public interface allCourse {
         void onError(String message);
@@ -34,7 +41,7 @@ public class CourseThemeService {
     }
 
     public void  getAllCourseTheme(int company_id,allCourse allCourse) {
-        String url = HTTP_LOCALHOST_3000_API+"courseTheme/"+company_id;
+        String url =  serverUrl+"/api/courseTheme/"+company_id;
 
         List<CourseTheme> courseThemeList =  new ArrayList<CourseTheme>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
