@@ -1,0 +1,10 @@
+
+BAck 
+NODE JS (express)
+base postgresql 
+connection base : pool 
+token : jwtToken
+hashage : bcrypt
+
+FRONT 
+appel api : volley 
