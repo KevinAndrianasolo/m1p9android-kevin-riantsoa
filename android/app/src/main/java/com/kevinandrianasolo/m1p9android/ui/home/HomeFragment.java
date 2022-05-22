@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
+import com.kevinandrianasolo.m1p9android.utils.PropertiesUtils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -61,21 +62,14 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(view.getContext(), "Vous n'aviez pas accès à internet ou " + description , Toast.LENGTH_LONG).show();
             }
         });
-
-
-        try{
-            Properties properties = new Properties();
-            InputStream is = view.getContext().getAssets().open("application.properties");
-            properties.load(is);
+        PropertiesUtils propertiesUtils = PropertiesUtils.getInstance(view.getContext());
+        Properties properties = propertiesUtils.getProperties();
+        if(properties!=null) {
             String serverUrl = properties.getProperty("server.url");
-
-            //String url = "http://192.168.137.138:3000/public/pages/home/index.html";
             String url = serverUrl + "/public/pages/home/index.html";
             homeWebView.loadUrl(url);
         }
-        catch(Exception e){
-            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        else Toast.makeText(view.getContext(), "Le fichier de configuration application.properties n'a pas été trouvé.", Toast.LENGTH_SHORT).show();
 
         return view;
     }

@@ -1,11 +1,15 @@
 package com.kevinandrianasolo.m1p9android;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -23,12 +27,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kevinandrianasolo.m1p9android.databinding.ActivityMainBinding;
+import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
+    public SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         this.initMenu();
+
+        /**
+         * Getting the connected USER :
+         */
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        this.refreshNavigationDrawer(navigationView, sharedPref);
+        /**
+         * Subscribe change Event to the SharedPreference
+         */
+        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                if(s.compareTo(getString(R.string.preferences_userId))==0) MainActivity.this.refreshNavigationDrawer(navigationView, sharedPreferences);
+            }
+        };
+        sharedPref.registerOnSharedPreferenceChangeListener(listener);
+        sharedPreferencesUtils.setSharedPreferences(sharedPref);
+    }
+
+    public void refreshNavigationDrawer(NavigationView navigationView, SharedPreferences sharedPreferences){
+        Menu navMenu = navigationView.getMenu();
+        MenuItem accountItem = navMenu.findItem(R.id.nav_account);
+        MenuItem loginItem = navMenu.findItem(R.id.nav_login);
+        String userId = sharedPreferences.getString(getString(R.string.preferences_userId) , null);
+        Boolean isAuthentificated = userId!=null;
+        if(accountItem!=null) accountItem.setVisible(isAuthentificated);
+        if(loginItem!=null) loginItem.setVisible(!isAuthentificated);
     }
 
     public void initMenu(){

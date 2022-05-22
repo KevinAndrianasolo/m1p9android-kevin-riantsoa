@@ -3,6 +3,8 @@ package com.kevinandrianasolo.m1p9android.ui.setting;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.utils.NotificationUtils;
+import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 public class SettingFragment extends Fragment {
 
@@ -43,15 +46,26 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+        SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
+        Boolean isNotificationActivated = sharedPref.getBoolean(getString(R.string.preferences_notifications), true);
         Switch notificationSwicth = view.findViewById(R.id.notification_switch_preference);
         notificationSwicth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Toast.makeText(view.getContext(), new Boolean(b).toString(), Toast.LENGTH_SHORT).show();
+                /**
+                 * Change preferences when toggle notificationSwicth
+                 */
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(getString(R.string.preferences_notifications), b);
+                editor.commit();
             }
         });
+        notificationSwicth.setChecked(isNotificationActivated);
         return view;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

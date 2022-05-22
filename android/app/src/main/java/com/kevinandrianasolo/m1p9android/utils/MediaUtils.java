@@ -23,10 +23,9 @@ public class MediaUtils {
         return progDialog;
     }
 
-    public static void loadVideo(Context context, VideoView videoView, String url, Boolean autostart, ProgressDialog progDialog){
+    public static void loadVideo(Context context, VideoView videoView, MediaController mediaController, String url, Boolean autostart, ProgressDialog progDialog){
         Uri uri = Uri.parse(url);
-        MediaController mediaController = new MediaController(context);
-        mediaController.setAnchorView(videoView);
+
 
         videoView.setMediaController(mediaController);
         videoView.setVideoURI(uri);
