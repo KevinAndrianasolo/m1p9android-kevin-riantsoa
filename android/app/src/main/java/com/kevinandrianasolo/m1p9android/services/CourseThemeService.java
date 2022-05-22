@@ -3,6 +3,7 @@ package com.kevinandrianasolo.m1p9android.services;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class CourseThemeService {
@@ -79,7 +82,18 @@ public class CourseThemeService {
 
                     }
                 }
-        );
+        ) {
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                String token = "" ;
+                headers.put("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwidXNlcklkIjoxLCJpYXQiOjE2NTMyNDgzNjYsImV4cCI6MTY1MzI1OTE2Nn0.0ksRQ0ykpR0Qtki5-YWsG12xet82KbCH_9z2kl4RUxA");
+                return headers;
+            }
+        };
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
 

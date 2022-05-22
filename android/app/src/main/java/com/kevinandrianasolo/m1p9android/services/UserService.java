@@ -7,8 +7,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.kevinandrianasolo.m1p9android.models.Course;
-import com.kevinandrianasolo.m1p9android.models.CourseTheme;
+import com.kevinandrianasolo.m1p9android.models.User;
 import com.kevinandrianasolo.m1p9android.singleton.ApiSingleton;
 import com.kevinandrianasolo.m1p9android.utils.PropertiesUtils;
 
@@ -22,11 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class CourseService {
+public class UserService {
     public String serverUrl = "http://10.0.2.2:3000";
     private Context context;
 
-    public CourseService(Context context) {
+    public UserService(Context context) {
 
         this.context = context;
         PropertiesUtils propertiesUtils = PropertiesUtils.getInstance(context);
@@ -36,42 +37,40 @@ public class CourseService {
         }
     }
 
-    public interface allCourseByTheme {
+    public interface login {
         void onError(String message);
-        void onResponse(List<Course> courseList);
+        void onResponse(String token);
     }
 
-    public interface allCourseByTitle {
+    public interface profile {
         void onError(String message);
-        void onResponse(List<Course> courseList);
+        void onResponse(User user);
+    }
+    public interface user_id {
+        void onError(String message);
+        void onResponse(int user_id);
     }
 
 
-    public void  getAllCourseByTheme(int courseTheme_id,allCourseByTheme allCourseByTheme) {
-        String url = serverUrl+"/api/course/theme/"+courseTheme_id;
-
-        List<Course> courseList =  new ArrayList<Course>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+    public void  getUser(int id,profile user) {
+        String url = serverUrl+"/api/user/"+id;
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            for(int i=0;i<response.length();i++) {
-                                JSONObject responseObj = response.getJSONObject(i);
-                                int id = responseObj.getInt("id");
-                                int courseTheme_id = responseObj.getInt("coursetheme_id");
-                                String title= responseObj.getString("title");
-                                String description = responseObj.getString("description");
-                                String video_path = responseObj.getString("video_path");
-                                String thumbnail = responseObj.getString("thumbnail");
-                                courseList.add(new Course(id,courseTheme_id,title, description, video_path,thumbnail));
-                            }
-                          allCourseByTheme.onResponse(courseList);
+                            int id = response.getInt("id");
+                            String email = response.getString("email");
+                            String name= response.getString("name");
+                            String firstname = response.getString("firstname");
+                            String username = response.getString("username");
+                            String birth = response.getString("birth");
+                            String gender = response.getString("gender");
+                            user.onResponse(new User(id,email,name,firstname,username,birth,gender));
                         } catch (JSONException e) {
-
                             e.printStackTrace();
                         }
                     }
@@ -91,6 +90,8 @@ public class CourseService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
             HashMap<String, String> headers = new HashMap<String, String>();
+
+            ////put the token here
             String token = "" ;
             headers.put("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwidXNlcklkIjoxLCJpYXQiOjE2NTMyNDgzNjYsImV4cCI6MTY1MzI1OTE2Nn0.0ksRQ0ykpR0Qtki5-YWsG12xet82KbCH_9z2kl4RUxA");
             return headers;
@@ -98,30 +99,59 @@ public class CourseService {
         };
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
-    public void  getAllCourseByTitle(int courseTheme_id,String key,allCourseByTitle allCourseByTitle) {
-        String url = serverUrl+"/api/course/theme/"+courseTheme_id+"/search?title="+key;
-        List<Course> courseList =  new ArrayList<Course>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+    //GET THE TOKEN
+    public void  login(login token ,String email,String password) {
+        String url = serverUrl+"/api/user/login";
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            for(int i=0;i<response.length();i++) {
-                                JSONObject responseObj = response.getJSONObject(i);
-                                int id = responseObj.getInt("id");
-                                int courseTheme_id = responseObj.getInt("coursetheme_id");
-                                String title= responseObj.getString("title");
-                                String description = responseObj.getString("description");
-                                String video_path = responseObj.getString("video_path");
-                                String thumbnail = responseObj.getString("thumbnail");
-                                courseList.add(new Course(id,courseTheme_id,title, description, video_path,thumbnail));
-                            }
-                            allCourseByTitle.onResponse(courseList);
+                           token.onResponse(response.getString("token"));
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
 
+                    }
+                }
+        )
+        {
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String token = "" ;
+                params.put("email",email);
+                params.put("password",password);
+                return params;
+            }
+        };
+        ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+    }
+    public void  tokenUser_id(user_id user_id) {
+        String url = serverUrl+"/api/user/login";
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int id = response.getInt("id");
+                            user_id.onResponse(id);
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -141,11 +171,13 @@ public class CourseService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
+                ////put the token here
                 String token = "" ;
                 headers.put("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwidXNlcklkIjoxLCJpYXQiOjE2NTMyNDgzNjYsImV4cCI6MTY1MzI1OTE2Nn0.0ksRQ0ykpR0Qtki5-YWsG12xet82KbCH_9z2kl4RUxA");
                 return headers;
             }
         };
+
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
 
