@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.User;
 import com.kevinandrianasolo.m1p9android.services.UserService;
+import com.kevinandrianasolo.m1p9android.utils.NotificationUtils;
 import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 public class AccountFragment extends Fragment {
@@ -66,7 +67,11 @@ public class AccountFragment extends Fragment {
         }
         else{
             Toast.makeText(view.getContext(), "Aucun utilisateur n'est connecté", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
+            navController.navigate(R.id.nav_home);
         }
+        NotificationUtils notificationUtils = NotificationUtils.getInstance();
+        notificationUtils.initNotificationChannel(view.getContext());
         Button logoutBtn = view.findViewById(R.id.account_logout_btn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,8 @@ public class AccountFragment extends Fragment {
                  */
                 NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
                 navController.navigate(R.id.nav_login);
+
+                notificationUtils.showBasicNotification(view.getContext(), "Alerte de déconnexion", "Votre compte a été déconnecté.");
             }
         });
         return view;

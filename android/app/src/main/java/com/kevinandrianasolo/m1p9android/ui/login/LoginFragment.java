@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.services.UserService;
+import com.kevinandrianasolo.m1p9android.utils.NotificationUtils;
 import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 public class LoginFragment extends Fragment {
@@ -43,6 +44,9 @@ public class LoginFragment extends Fragment {
 
         usernameEditText.setText("kevin.andrianasolo.lala@gmail.com");
         passwordEditText.setText("123456");
+
+        NotificationUtils notificationUtils = NotificationUtils.getInstance();
+        notificationUtils.initNotificationChannel(view.getContext());
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +76,8 @@ public class LoginFragment extends Fragment {
                          */
                         NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
                         navController.navigate(R.id.nav_home);
+
+                        notificationUtils.showBasicNotification(view.getContext(), "Alerte de connexion", "Le compte "+email+ " est connecté.");
                     }
                 });
 

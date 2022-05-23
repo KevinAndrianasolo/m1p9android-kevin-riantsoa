@@ -33,7 +33,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_fragment, container, false);
-        Button nofifyBtn = view.findViewById(R.id.notifyBtn);
+        /*Button nofifyBtn = view.findViewById(R.id.notifyBtn);
 
         NotificationUtils notificationUtils = NotificationUtils.getInstance();
         notificationUtils.initNotificationChannel(view.getContext());
@@ -44,7 +44,7 @@ public class SettingFragment extends Fragment {
                 String textContent = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
                 notificationUtils.showBasicNotification(view.getContext(), textTitle, textContent);
             }
-        });
+        });*/
 
         SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
         SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
