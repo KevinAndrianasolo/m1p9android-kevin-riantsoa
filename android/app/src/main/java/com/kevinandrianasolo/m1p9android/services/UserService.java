@@ -1,6 +1,7 @@
 package com.kevinandrianasolo.m1p9android.services;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -100,7 +101,7 @@ public class UserService {
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
     //GET THE TOKEN
-    public void  login(login token ,String email,String password) {
+    public void  login(String email,String password, login token ) {
         String url = serverUrl+"/api/user/login";
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -112,7 +113,7 @@ public class UserService {
                         try {
                            token.onResponse(response.getString("token"));
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -120,7 +121,7 @@ public class UserService {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Do something when error occurred
-
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
         )

@@ -17,9 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
+import com.kevinandrianasolo.m1p9android.adapters.CourseThemeAdapter;
+import com.kevinandrianasolo.m1p9android.models.CourseTheme;
+import com.kevinandrianasolo.m1p9android.services.CourseThemeService;
+import com.kevinandrianasolo.m1p9android.services.UserService;
 import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
+
+import java.util.List;
 
 public class LoginFragment extends Fragment {
 
@@ -34,25 +43,45 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         Button loginBtn = view.findViewById(R.id.login_btn);
+
+        EditText usernameEditText = view.findViewById(R.id.login_username);
+        EditText passwordEditText = view.findViewById(R.id.login_password);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Saving userId in the global SharedPreference
-                 */
-                String userId = "user1";
-                SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
-                SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
-                SharedPreferences.Editor editor = sharedPref.edit();
+                Context context = view.getContext();
+                String email = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                Toast.makeText(context, email + " : " + password, Toast.LENGTH_SHORT).show();
+                UserService userService = new UserService(context);
+                userService.login(email, password, new UserService.login() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onResponse(String token) {
+                        Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
+                        /**
+                         * Saving userId in the global SharedPreference
+                         */
+                        String userId = token;
+                        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+                        SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
+                        SharedPreferences.Editor editor = sharedPref.edit();
 
-                editor.putString(getString(R.string.preferences_userId), userId);
-                editor.commit();
+                        editor.putString(getString(R.string.preferences_userId), userId);
+                        editor.commit();
 
-                /**
-                 * Redirecting to home after Login succeed
-                 */
-                NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
-                navController.navigate(R.id.nav_home);
+                        /**
+                         * Redirecting to home after Login succeed
+                         */
+                        NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.nav_host_fragment_content_main);
+                        navController.navigate(R.id.nav_home);
+                    }
+                });
+
+
             }
         });
         return view;

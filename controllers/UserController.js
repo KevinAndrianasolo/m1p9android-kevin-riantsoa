@@ -24,6 +24,7 @@ const  user_signup = async (request, response) => {
     })
   }
   const user_login = async (request, response, next) => {
+    console.log(request.body);
     let email = request.body.email
     
    await pool.query('SELECT * FROM account WHERE email = $1', [email], async(error, results) => {
