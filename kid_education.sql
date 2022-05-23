@@ -72,6 +72,8 @@ create table account (
     gender varchar(50)
 );
 
+insert into account(name, firstname, email, birth, password, gender) values ('ANDRIANASOLO LALA', 'Sitrakaharinetsa Kevin', 'kevin.andrianasolo.lala@gmail.com', '18-09-2001', '$2a$12$gdMhluMYayY3Uf98OL8h3e5lHWPyNAGmvpprs4gnaKtn0gfHU4DuK', 'M');
+
 
 -- DONNÉE TEST SOCIETE
 INSERT into company (name,slogan,min_age,max_age,summary) VALUES ( 'Ludikids','Grandir Malin',3,8, 'Ludikids est une chaîne de télévision linéaire éducative et pédagogique qui propose  aux enfants âgés de 3 à 8 ans des programmes encadrés, ludiques et éducatifs mettant l''accent sur l''anglais et l''alphabétisation, les maths et l''arithmétique, les sciences et le monde autour de nous, l''apprentissage social et émotionnel' );

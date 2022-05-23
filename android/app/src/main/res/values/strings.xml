@@ -16,6 +16,6 @@
     <string name="category_course">Détails du cours</string>
     <string name="channel_name">Ludikids Notification Channel</string>
     <string name="channel_description">Ludikids Notification Description</string>
-    <string name="preferences_userId">preferences_userId</string>
+    <string name="preferences_tokenUser">preferences_tokenUser</string>
     <string name="preferences_notifications">preferences_notifications</string>
 </resources>

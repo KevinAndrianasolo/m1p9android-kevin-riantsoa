@@ -6,7 +6,7 @@ public class User implements Serializable {
     private int id;
     private String email;
     private String name;
-    private String fistname;
+    private String firstname;
     private String username;
     private String birth;
     private String gender;
@@ -35,12 +35,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getFistname() {
-        return fistname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFistname(String fistname) {
-        this.fistname = fistname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getUsername() {
@@ -71,7 +71,7 @@ public class User implements Serializable {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.fistname = fistname;
+        this.firstname = fistname;
         this.username = username;
         this.birth = birth;
         this.gender = gender;

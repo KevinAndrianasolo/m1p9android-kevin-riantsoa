@@ -12,8 +12,6 @@ import androidx.core.view.GravityCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                if(s.compareTo(getString(R.string.preferences_userId))==0) MainActivity.this.refreshNavigationDrawer(navigationView, sharedPreferences);
+                if(s.compareTo(getString(R.string.preferences_tokenUser))==0) MainActivity.this.refreshNavigationDrawer(navigationView, sharedPreferences);
             }
         };
         sharedPref.registerOnSharedPreferenceChangeListener(listener);
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Menu navMenu = navigationView.getMenu();
         MenuItem accountItem = navMenu.findItem(R.id.nav_account);
         MenuItem loginItem = navMenu.findItem(R.id.nav_login);
-        String userId = sharedPreferences.getString(getString(R.string.preferences_userId) , null);
+        String userId = sharedPreferences.getString(getString(R.string.preferences_tokenUser) , null);
         Boolean isAuthentificated = userId!=null;
         if(accountItem!=null) accountItem.setVisible(isAuthentificated);
         if(loginItem!=null) loginItem.setVisible(!isAuthentificated);

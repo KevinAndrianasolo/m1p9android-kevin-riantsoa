@@ -18,17 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kevinandrianasolo.m1p9android.R;
-import com.kevinandrianasolo.m1p9android.adapters.CourseThemeAdapter;
-import com.kevinandrianasolo.m1p9android.models.CourseTheme;
-import com.kevinandrianasolo.m1p9android.services.CourseThemeService;
 import com.kevinandrianasolo.m1p9android.services.UserService;
 import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
-
-import java.util.List;
 
 public class LoginFragment extends Fragment {
 
@@ -46,13 +40,15 @@ public class LoginFragment extends Fragment {
 
         EditText usernameEditText = view.findViewById(R.id.login_username);
         EditText passwordEditText = view.findViewById(R.id.login_password);
+
+        usernameEditText.setText("kevin.andrianasolo.lala@gmail.com");
+        passwordEditText.setText("123456");
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = view.getContext();
                 String email = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                Toast.makeText(context, email + " : " + password, Toast.LENGTH_SHORT).show();
                 UserService userService = new UserService(context);
                 userService.login(email, password, new UserService.login() {
                     @Override
@@ -61,16 +57,14 @@ public class LoginFragment extends Fragment {
                     }
                     @Override
                     public void onResponse(String token) {
-                        Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
                         /**
-                         * Saving userId in the global SharedPreference
+                         * Saving tokenUser in the global SharedPreference
                          */
-                        String userId = token;
                         SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
                         SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
                         SharedPreferences.Editor editor = sharedPref.edit();
 
-                        editor.putString(getString(R.string.preferences_userId), userId);
+                        editor.putString(getString(R.string.preferences_tokenUser), token);
                         editor.commit();
 
                         /**

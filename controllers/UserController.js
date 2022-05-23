@@ -29,14 +29,14 @@ const  user_signup = async (request, response) => {
     
    await pool.query('SELECT * FROM account WHERE email = $1', [email], async(error, results) => {
       if (error || results.rowCount ==0) {
-        return response.status(401).json({
-            message:  " email  invalide"
+        return response.status(500).json({
+            message:  "Email  invalide."
         });
       }
      await bcrypt.compare(request.body.password, results.rows[0]["password"], async (err, result) => {
             if (!result ) {
-              return response.status(401).json({
-                message:  " Mot de passe invalide"
+              return response.status(500).json({
+                message:  "Mot de passe invalide."
               });
             }
             if (result) {
@@ -46,23 +46,24 @@ const  user_signup = async (request, response) => {
                         userId: results.rows[0]["id"]
                     },
                     process.env.JWT_KEY,
-                    {
-                        expiresIn: "3h"
-                    }
+                    {}
                 );
                 return response.status(200).json({
                     message: "Authentification success",
                     token: token,
-                    expiresIn: "3h"
+                    expiresIn: null
                 });
             }
         });
     })
 }   
-  user = function(req, res, next) {
+  const user = function(req, res, next) {
+    console.log(req.userData);
     if (req.userData) {
-      res.send(req.userData);
-      next();
+      console.log(req.userData);
+      res.status(200).send(req.userData.userId);
+      
+      //next();
     } 
     else {
      return res.status(401).json({ message: 'Invalid token' });
@@ -78,8 +79,25 @@ const  user_signup = async (request, response) => {
       response.status(200).json(results.rows)
     })
   }
+  const  getUserDetails = async (request, response) => {
+    if (request.userData) {
+      console.log(request.userData);
+      const id = parseInt(request.userData.userId);
+    
+      await pool.query('SELECT * FROM account WHERE id = $1', [id], (error, results) => {
+        if (error) {
+          throw error
+        }
+        if(results.rows.length==0) throw new Error("Token invalide");
+        response.status(200).json(results.rows[0])
+      });
+    } 
+    else {
+     return res.status(401).json({ message: 'Invalid token' });
+    }
+  }
   module.exports = {
-    user_signup,user_login,user,getUserById
+    user_signup,user_login,user,getUserById, getUserDetails
   }
 
 

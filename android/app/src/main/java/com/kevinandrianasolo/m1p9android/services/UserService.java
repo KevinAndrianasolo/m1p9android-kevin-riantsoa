@@ -1,6 +1,7 @@
 package com.kevinandrianasolo.m1p9android.services;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -9,10 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kevinandrianasolo.m1p9android.R;
 import com.kevinandrianasolo.m1p9android.models.Course;
 import com.kevinandrianasolo.m1p9android.models.User;
 import com.kevinandrianasolo.m1p9android.singleton.ApiSingleton;
 import com.kevinandrianasolo.m1p9android.utils.PropertiesUtils;
+import com.kevinandrianasolo.m1p9android.utils.SharedPreferencesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,10 +106,15 @@ public class UserService {
     //GET THE TOKEN
     public void  login(String email,String password, login token ) {
         String url = serverUrl+"/api/user/login";
+        Map<String, String> params = new HashMap();
+        params.put("email", email);
+        params.put("password", password);
+
+        JSONObject parameters = new JSONObject(params);
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null,
+                parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -121,7 +129,7 @@ public class UserService {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Do something when error occurred
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Compte inexistant", Toast.LENGTH_SHORT).show();
                     }
                 }
         )
@@ -140,8 +148,9 @@ public class UserService {
         };
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
-    public void  tokenUser_id(user_id user_id) {
-        String url = serverUrl+"/api/user/login";
+    public void  tokenUser_id(String tokenUser, user_id user_id) {
+
+        String url = serverUrl+"/api/user/profile";
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -161,7 +170,7 @@ public class UserService {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         // Do something when error occurred
-
+                        Toast.makeText(context, "Token invalide", Toast.LENGTH_SHORT).show();
                     }
                 }
         )
@@ -172,9 +181,54 @@ public class UserService {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                ////put the token here
-                String token = "" ;
-                headers.put("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwidXNlcklkIjoxLCJpYXQiOjE2NTMyNDgzNjYsImV4cCI6MTY1MzI1OTE2Nn0.0ksRQ0ykpR0Qtki5-YWsG12xet82KbCH_9z2kl4RUxA");
+                headers.put("Authorization", "Bearer " + tokenUser);
+                return headers;
+            }
+        };
+
+        ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+    }
+
+    public void  getUserDetails(String tokenUser, profile user) {
+
+        String url = serverUrl+"/api/user/details";
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int id = response.getInt("id");
+                            String email = response.getString("email");
+                            String name= response.getString("name");
+                            String firstname = response.getString("firstname");
+                            String username = response.getString("username");
+                            String birth = response.getString("birth");
+                            String gender = response.getString("gender");
+                            user.onResponse(new User(id,email,name,firstname,username,birth,gender));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
+                        Toast.makeText(context, "Token invalide", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        )
+        {
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer " + tokenUser);
                 return headers;
             }
         };
