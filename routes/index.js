@@ -4,11 +4,11 @@ const path = require('path');
 var appDir = path.resolve(__dirname, '..');
 
 //import route 
-var company = require('./CompanyRoute.js');
-var asset = require('./AssetRoute.js');
-var courseTheme = require('./CourseThemeRoute.js');
-var course = require('./CourseRoute.js');
-var user = require('./userRoute.js');
+var company = require('./CompanyRoute');
+var asset = require('./AssetRoute');
+var courseTheme = require('./CourseThemeRoute');
+var course = require('./CourseRoute');
+var user = require('./UserRoute');
 
 //all route
 router.use('/api/company', company);
