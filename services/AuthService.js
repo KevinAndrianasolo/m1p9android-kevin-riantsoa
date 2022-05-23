@@ -19,8 +19,7 @@ let check = async function(authObj){
     }
     catch(e){
         return false;
-    }
-    
+    }   
 };
 let signup = async function(user){
     let userId = await ApiService.save(Collections.USER, user);

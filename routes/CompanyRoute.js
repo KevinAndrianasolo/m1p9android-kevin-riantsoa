@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const checkAuth = require('../middleware/check-auth');
 const CompanyController = require('../controllers/CompanyController');
 // const checkAuth = require('../middleware/check-auth');
 
@@ -10,7 +10,7 @@ const CompanyController = require('../controllers/CompanyController');
 
 // router.delete("/delete/:userId", checkAuth, UserController.user_delete);
 
-router.get("/:id", CompanyController.getCompanyById);
-router.get("/", CompanyController.getCompanies);
+router.get("/:id", checkAuth, CompanyController.getCompanyById);
+router.get("/", checkAuth, CompanyController.getCompanies);
 //  router.get("/find/:userId", checkAuth, UserController.findUser);
 module.exports = router;
