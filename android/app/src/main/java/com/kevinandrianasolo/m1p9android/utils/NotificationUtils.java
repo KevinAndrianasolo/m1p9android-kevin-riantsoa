@@ -36,7 +36,7 @@ public class NotificationUtils {
 
     public void showBasicNotification(Context context, String textTitle, String textContent){
         if(!this.isNotificationActivated(context)) {
-            Toast.makeText(context, "Pour voir les notifications, allez voir dans paramètres > Cochez 'Activer les notifications'", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Pour voir les notifications: Paramètres > 'Activer les notifications'", Toast.LENGTH_LONG).show();
             return;
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)

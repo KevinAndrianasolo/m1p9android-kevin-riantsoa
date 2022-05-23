@@ -47,7 +47,6 @@ public class CourseThemeService {
 
     public void  getAllCourseTheme(int company_id,allCourse allCourse) {
         String url =  serverUrl+"/api/courseTheme/"+company_id;
-        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
         List<CourseTheme> courseThemeList =  new ArrayList<CourseTheme>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
