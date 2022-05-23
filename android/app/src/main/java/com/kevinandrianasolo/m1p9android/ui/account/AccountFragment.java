@@ -42,9 +42,10 @@ public class AccountFragment extends Fragment {
         SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
         SharedPreferences sharedPref = sharedPreferencesUtils.getSharedPreferences();
         String tokenUser = sharedPref.getString(getString(R.string.preferences_tokenUser) , null);
-
+        TextView email = view.findViewById(R.id.account_email);
         TextView lastname = view.findViewById(R.id.account_lastname);
         TextView firstname = view.findViewById(R.id.account_firstname);
+        TextView sex = view.findViewById(R.id.account_sex);
         if(tokenUser!=null){
             // Setting user informations :
             Context context = view.getContext();
@@ -56,9 +57,10 @@ public class AccountFragment extends Fragment {
                 }
                 @Override
                 public void onResponse(User user) {
-                    Toast.makeText(context, "USERNAME : "+user.getName(), Toast.LENGTH_SHORT).show();
+                    email.setText(user.getEmail());
                     lastname.setText(user.getName());
-                    lastname.setText(user.getFirstname());
+                    firstname.setText(user.getFirstname());
+                    sex.setText(user.getGender());
                 }
             });
         }

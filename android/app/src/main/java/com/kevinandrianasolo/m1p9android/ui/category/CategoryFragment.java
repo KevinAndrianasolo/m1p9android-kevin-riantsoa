@@ -49,7 +49,6 @@ public class CategoryFragment extends Fragment {
             }
             @Override
             public void onResponse(List<CourseTheme> courseThemeList) {
-                Toast.makeText(view.getContext(), "Response", Toast.LENGTH_SHORT).show();
                 ListView categoryListView = view.findViewById(R.id.category_fragment_list_view);
                 categoryListView.setAdapter(new CourseThemeAdapter(view.getContext(), courseThemeList));
             }

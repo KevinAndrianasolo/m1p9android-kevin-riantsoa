@@ -50,59 +50,7 @@ public class UserService {
         void onError(String message);
         void onResponse(User user);
     }
-    public interface user_id {
-        void onError(String message);
-        void onResponse(int user_id);
-    }
 
-
-    public void  getUser(int id,profile user) {
-        String url = serverUrl+"/api/user/"+id;
-        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            int id = response.getInt("id");
-                            String email = response.getString("email");
-                            String name= response.getString("name");
-                            String firstname = response.getString("firstname");
-                            String username = response.getString("username");
-                            String birth = response.getString("birth");
-                            String gender = response.getString("gender");
-                            user.onResponse(new User(id,email,name,firstname,username,birth,gender));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        // Do something when error occurred
-
-                    }
-                }
-        )
-        {
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-            HashMap<String, String> headers = new HashMap<String, String>();
-
-            ////put the token here
-            String token = "" ;
-            headers.put("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwidXNlcklkIjoxLCJpYXQiOjE2NTMyNDgzNjYsImV4cCI6MTY1MzI1OTE2Nn0.0ksRQ0ykpR0Qtki5-YWsG12xet82KbCH_9z2kl4RUxA");
-            return headers;
-        }
-        };
-        ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
-    }
     //GET THE TOKEN
     public void  login(String email,String password, login token ) {
         String url = serverUrl+"/api/user/login";
@@ -146,46 +94,6 @@ public class UserService {
                 return params;
             }
         };
-        ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
-    }
-    public void  tokenUser_id(String tokenUser, user_id user_id) {
-
-        String url = serverUrl+"/api/user/profile";
-        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            int id = response.getInt("id");
-                            user_id.onResponse(id);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        // Do something when error occurred
-                        Toast.makeText(context, "Token invalide", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        )
-        {
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", "Bearer " + tokenUser);
-                return headers;
-            }
-        };
-
         ApiSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
 

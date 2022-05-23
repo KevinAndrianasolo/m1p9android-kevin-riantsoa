@@ -24,7 +24,6 @@ const  user_signup = async (request, response) => {
     })
   }
   const user_login = async (request, response, next) => {
-    console.log(request.body);
     let email = request.body.email
     
    await pool.query('SELECT * FROM account WHERE email = $1', [email], async(error, results) => {
@@ -81,7 +80,6 @@ const  user_signup = async (request, response) => {
   }
   const  getUserDetails = async (request, response) => {
     if (request.userData) {
-      console.log(request.userData);
       const id = parseInt(request.userData.userId);
     
       await pool.query('SELECT * FROM account WHERE id = $1', [id], (error, results) => {
